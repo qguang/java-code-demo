@@ -12,11 +12,9 @@ public class Hello {
 	public static void main(String[] args) {
  
 		// loading the definitions from the given XML file
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		
-		HelloWorldService service = (HelloWorldService) context
-				.getBean("helloWorldService");
+		HelloWorldService service = (HelloWorldService) context.getBean("helloWorldService");
 		String message = service.sayHello();
 		System.out.println(message);
  
