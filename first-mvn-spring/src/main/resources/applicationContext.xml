@@ -7,9 +7,23 @@
  
 	<context:component-scan base-package="com.guang.first_mvn_spring" />
  
-	<bean id="helloWorldService" class="com.guang.first_mvn_spring.services.HelloWorldService">
-		<property name="name" value="Guang's first mvn and spring hellow world" />
+	<bean id="helloWorldService" class="com.guang.first_mvn_spring.services.HelloWorldService"  init-method = "init" 
+      destroy-method = "destroy">
+		<property name="name" value="This property value is set by applicationContext.xml" />
 	</bean>
+	
+	<bean id="initHelloWorldService" class="com.guang.first_mvn_spring.services.InitHelloWorld" >
+	</bean>
+
+	 <bean id = "helloWorld" class = "com.guang.first_mvn_spring.HelloWorld">
+      <property name = "message1" value = "Hello World!"/>
+      <property name = "message2" value = "Hello Second World!"/>
+     </bean>
+
+     <bean id ="helloIndia" class = "com.guang.first_mvn_spring.HelloIndia" parent = "helloWorld">
+      <property name = "message1" value = "Hello India!"/>
+      <property name = "message3" value = "Namaste India!"/>
+     </bean>
 	
 </beans>
 
