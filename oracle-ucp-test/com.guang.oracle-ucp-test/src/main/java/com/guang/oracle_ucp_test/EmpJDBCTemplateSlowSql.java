@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class EmpJDBCTemplate {
+public class EmpJDBCTemplateSlowSql {
 
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
@@ -22,8 +22,9 @@ public class EmpJDBCTemplate {
 	}
 	
 	public void displayEmpList(){
-		String SQL = "select emp_id, name, instance_name, session_id, sid from emp where emp_id = ?";
-		String insertSQL = "insert into emp (emp_id, name) values(?, ?)";
+		String SQL = "select emp_id, name, instance_name, session_id, sid from emp where emp_id = ? and rownum < 2";
+		//wait for 5 seconds * 2 level = 10 seconds
+		String insertSQL = "insert into emp (emp_id, name) select  ?, ? from dual  connect by level <= zz_delay(5,2) order by level";
 		List<EmployeeDAO> employees ;
 		int j = 0;
 		
@@ -34,7 +35,7 @@ public class EmpJDBCTemplate {
 		
 		//loop counter below
 		
-		for (int i=0; i<3; i++){
+		for (int i=0; i<100; i++){
 			System.out.println("==================================== "+  Integer.toString(i) +  " ====================================");
 			System.out.print("Start inserting  ... Elasped (millis) = ");
 
@@ -62,6 +63,11 @@ public class EmpJDBCTemplate {
 				System.out.println("INSTANCE     : " + employee.getInstanceName());
 				System.out.println("SESSIONID    : " + employee.getSessionId());
 				System.out.println("SID          : " + employee.getSid());
+				
+				if (j > 20){
+					System.out.println("Don't want to print all out. let's exit this loop");	
+					break;
+				}
 			}
 			
 

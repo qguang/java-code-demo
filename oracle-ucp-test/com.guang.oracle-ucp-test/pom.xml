@@ -13,7 +13,11 @@
 		<spring.version>4.3.5.RELEASE</spring.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<logback.version>1.2.3</logback.version>
-		<ojdbc.version>12.1.0.2</ojdbc.version>
+		
+		<!-- JDBC 7 :  12.1.0.2  remeber to update 7 and 8-->
+		<!-- JDBC 7 :  12.2.0.1  remeber to update 7 and 8-->
+		
+		<ojdbc.version>12.2.0.1</ojdbc.version>
 	</properties>
 
 
@@ -61,9 +65,10 @@
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
         </dependency>
+
 		<dependency>
       		<groupId>com.oracle.jdbc</groupId>
-      		<artifactId>ojdbc7</artifactId>
+      		<artifactId>ojdbc8</artifactId>
       		<version>${ojdbc.version}</version>
     	</dependency>
     	<dependency>
@@ -72,5 +77,11 @@
 	      <version>${ojdbc.version}</version>
     	 </dependency>
     
+        <dependency>
+	      <groupId>com.oracle.jdbc</groupId>
+	      <artifactId>ons</artifactId>
+	      <version>${ojdbc.version}</version>
+    	 </dependency>
+    	 
   </dependencies>
 </project>

@@ -11,8 +11,46 @@
       <property name="maxPoolSize" value="10"/>
       <property name="initialPoolSize" value="2"/>
   </bean>
+  
+  <bean id="ucpVMDataSource" class="oracle.ucp.jdbc.PoolDataSourceFactory" factory-method="getPoolDataSource">
+    <property name="URL" value="jdbc:oracle:thin:@(DESCRIPTION = (CONNECT_TIMEOUT=20)(RETRY_COUNT=10)(RETRY_DELAY=10)(ADDRESS_LIST = (LOAD_BALANCE = ON)(FAILOVER = ON)(ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1530)))(CONNECT_DATA = (SERVER = dedicated)(SERVICE_NAME = ggbw_vm_pdb.cba.com.au)))" />
+    <property name="user" value="ucp_user" />
+    <property name="password" value="ucp_user" />
+    <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+    <property name="connectionPoolName" value="UCP_POOL" />
+    <property name="minPoolSize" value="1" />
+    <property name="maxPoolSize" value="2" />
+    <property name="initialPoolSize" value="1" />
+    <property name="inactiveConnectionTimeout" value="120" />
+    <property name="validateConnectionOnBorrow" value="true" />
+    <property name="maxStatements" value="10" />
+    <property name="fastConnectionFailoverEnabled" value="true" />
+	</bean>
+	
+	<bean id="ucpPdsDev1DataSource" class="oracle.ucp.jdbc.PoolDataSourceFactory" factory-method="getPoolDataSource">
+	    <property name="URL" value="jdbc:oracle:thin:@(DESCRIPTION = (CONNECT_TIMEOUT=90)(RETRY_COUNT=20)(RETRY_DELAY=3)(ADDRESS_LIST = (LOAD_BALANCE = ON)(FAILOVER = ON)(ADDRESS = (PROTOCOL = TCP)(HOST = dm08tdb01-vip.au.cbainet.com)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = dm08tdb02-vip.au.cbainet.com)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = dm08tdb03-vip.au.cbainet.com)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = dm08tdb04-vip.au.cbainet.com)(PORT = 1521)))(CONNECT_DATA = (SERVER = dedicated)(SERVICE_NAME = PDS_DEV1.cba.com.au)))" />
+	    <property name="user" value="pds_user" />
+	    <property name="password" value="pds_user_dev1_01" />
+	    <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
+	    <property name="connectionPoolName" value="UCP_POOL" />
+	    <property name="minPoolSize" value="2" />
+	    <property name="maxPoolSize" value="2" />
+	    <property name="initialPoolSize" value="2" />
+	    <property name="inactiveConnectionTimeout" value="120" />
+	    <property name="validateConnectionOnBorrow" value="true" />
+	    <property name="maxStatements" value="10" />
+	    <property name="loginTimeout" value="30" />
+	    <property name="fastConnectionFailoverEnabled" value="true" />
+	</bean>
+
+
   <!-- Definition for EmpJDBCTemplate bean -->
   <bean id="EmpJDBCTemplate" class="com.guang.oracle_ucp_test.EmpJDBCTemplate">
-      <property name="dataSource" ref="dataSource"/>
+      <property name="dataSource" ref="ucpPdsDev1DataSource"/>
   </bean>
+  <!-- Definition for EmpJDBCTemplateSlowSql bean -->
+  <bean id="EmpJDBCTemplateSlowSql" class="com.guang.oracle_ucp_test.EmpJDBCTemplateSlowSql">
+      <property name="dataSource" ref="ucpPdsDev1DataSource"/>
+  </bean>
+  
 </beans>
