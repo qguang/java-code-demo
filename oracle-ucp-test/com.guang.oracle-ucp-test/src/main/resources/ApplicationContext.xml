@@ -21,7 +21,8 @@
 	    <!-- oracle.jdbc.pool.OracleDataSource -->
 	    <!-- oracle.jdbc.replay.OracleDataSourceImpl -->
 	    <!-- oracle.jdbc.replay.OracleConnectionPoolDataSourceImpl -->
-	    <property name="connectionFactoryClassName" value="oracle.jdbc.replay.OracleConnectionPoolDataSourceImpl" />
+	    <!--  Oracle developer suggests to use OracleDataSourceImpl  -->
+	    <property name="connectionFactoryClassName" value="oracle.jdbc.replay.OracleDataSourceImpl" />
 	    <property name="connectionPoolName" value="UCP_POOL" />
 	    <property name="minPoolSize" value="2" />
 	    <property name="maxPoolSize" value="2" />
@@ -29,7 +30,8 @@
 	    <property name="validateConnectionOnBorrow" value="true" />
 	    <property name="maxStatements" value="10" />
 	    <property name="loginTimeout" value="30" />
-	    <property name="fastConnectionFailoverEnabled" value="true" />
+	    <!--  we don't need to set fastConnectionFailoverEnabled when using 12.2  -->
+	    <!--  <property name="fastConnectionFailoverEnabled" value="true" /> -->
    </bean>
    
    <!-- JDBC: configured; DB: configured -->
@@ -53,8 +55,8 @@
 	    <!-- oracle.jdbc.pool.OracleDataSource -->
 	    <!-- oracle.jdbc.replay.OracleDataSourceImpl -->
 	    <!-- oracle.jdbc.replay.OracleConnectionPoolDataSourceImpl -->
-	    <property name="connectionFactoryClassName" value="oracle.jdbc.replay.OracleConnectionPoolDataSourceImpl" />
-	    <property name="connectionPoolName" value="UCP_POOL" />
+	    <property name="connectionFactoryClassName" value="oracle.jdbc.replay.OracleDataSourceImpl" />
+	    <property name="connectionPoolName" value="UCP_POOL1" />
 	    <property name="minPoolSize" value="2" />
 	    <property name="maxPoolSize" value="2" />
 	    <property name="initialPoolSize" value="2" />
@@ -87,7 +89,7 @@
 	    <!-- oracle.jdbc.replay.OracleDataSourceImpl -->
 	    <!-- oracle.jdbc.replay.OracleConnectionPoolDataSourceImpl -->
 	    <property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource" />
-	    <property name="connectionPoolName" value="UCP_POOL" />
+	    <property name="connectionPoolName" value="UCP_POOL2" />
 	    <property name="minPoolSize" value="2" />
 	    <property name="maxPoolSize" value="2" />
 	    <property name="initialPoolSize" value="2" />
